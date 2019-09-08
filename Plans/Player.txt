@@ -1,0 +1,43 @@
+damage
+  impact, piercing, slashing
+
+player only has three actions: attack, block, move
+
+attack -> block = burst
+block -> attack = pulse
+burst or pulse starts recovery
+recovery accelerated by not moving
+
+killing with a burst skips cooldown
+pulsing special attacks skips cooldown
+
+speeds from high to low: move, attack, block, recover
+
+three types of attacks, blocks and movement
+all attacks have a basic, burst and ultimate
+
+attacks
+  sword // aoe
+    arc slash
+    beyblade
+    sweep slam
+  bomb // delayed damage
+    chaos chaos
+    flash snap
+    pandemonium
+      blast straight up, choose land
+  gun // single target
+    six shooter
+    brrrraap
+    hellseeker
+    
+
+
+swords
+  hammer
+    
+
+
+statuses
+  blinking tic
+
