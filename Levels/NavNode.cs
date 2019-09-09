@@ -7,9 +7,8 @@ internal class NavNode {
   internal Dictionary<NavNode, float> links;
   
   internal void Link(NavNode node) {
-    float dist = (pos - node.pos).magnitude; // TODO cpu hog
-    links.Add(node, dist);
-    node.links.Add(this, dist);
+    links.Add(node, -1f);
+    node.links.Add(this, -1f);
   }
   
   internal void Unlink(NavNode node) {
@@ -18,7 +17,15 @@ internal class NavNode {
   }
   
   internal void EvalWeights() {
-    return; // 
+    // foreach (KeyValuePair<NavNode, float> link in links) {
+    //   NavNode node = link.Key;
+    //   if (link.Value == -1f) {
+    //     float dist = (pos - node.pos).magnitude;
+    //     links[node] = dist;
+    //     node.links[this] = dist;
+    //     node.EvalWeights();
+    //   }
+    // }
   }
   
   internal NavNode(Vector2 pos) {

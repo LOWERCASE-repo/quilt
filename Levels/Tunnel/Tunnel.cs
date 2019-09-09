@@ -15,7 +15,7 @@ public class Tunnel : MonoBehaviour {
   private float shapeChaos;
   
   private Bezier[] beziers;
-  private NavNode start;
+  private NavGraph start;
   
   private Vector2 Eval(float time) {
     float curveLen = 1f / beziers.Length;
@@ -62,10 +62,10 @@ public class Tunnel : MonoBehaviour {
   
   private void Start() {
     GenBeziers();
-    start = NavGrapher.Graph(Eval, 1f);
+    start = NavGraphCreator.CreateGraph(Eval, 1f);
   }
   
   private void Update() {
-    NavGrapher.DebugGraph(start);
+    NavGraphCreator.DebugGraph(start.start);
   }
 }

@@ -1,11 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-internal class NavGraph {
+internal class MapHull {
   
-  internal HashSet<Vector2> positions;
-  internal NavNode start;
-  internal float width;
+  internal List<Vector2> vertices;
+  // whatever else lague's algo needs
   
   
 }
