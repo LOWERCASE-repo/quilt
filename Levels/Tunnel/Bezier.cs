@@ -3,12 +3,12 @@ using UnityEngine;
 internal class Bezier {
   
   internal Vector2[] pivots;
-  internal Vector2 start {
-    get { return pivots[0]; }
-  }
-  internal Vector2 end {
-    get { return pivots[pivots.Length - 1]; }
-  }
+  // internal Vector2 start {
+  //   get { return pivots[0]; }
+  // }
+  // internal Vector2 end {
+  //   get { return pivots[pivots.Length - 1]; }
+  // }
   
   private Vector2 EvalRec(double time, int startIndex, int endIndex) {
     if (startIndex == endIndex) return pivots[startIndex];

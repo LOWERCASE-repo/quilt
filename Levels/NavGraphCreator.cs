@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-internal class NavGrapher {
+internal class NavGraphCreator {
   
   private static void GraphRec(Func<float, Vector2> eval, float width, NavNode prev, NavNode next, float prevTime, float nextTime) {
     float midTime = (prevTime + nextTime) / 2f;
