@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-internal class NavGraphCreator {
+internal class NavGraphGenerator {
   
-  private static void GraphRec(Func<float, Vector2> eval, NavGraph graph, NavNode prev, NavNode next, float prevTime, float nextTime) {
+  private static void GenGraphRec(Func<float, Vector2> eval, NavGraph graph, NavNode prev, NavNode next, float prevTime, float nextTime) {
     float midTime = (prevTime + nextTime) / 2f;
     Vector2 midPos = eval(midTime);
     
@@ -25,14 +25,14 @@ internal class NavGraphCreator {
     }
   }
   
-  internal static NavGraph CreateGraph(Func<float, Vector2> eval, float width) {
+  internal static NavGraph GenGraph(Func<float, Vector2> eval, float width) {
     NavNode start = new NavNode(eval(0f));
     NavNode end = new NavNode(eval(1f));
     NavGraph graph = new NavGraph(new HashSet<Vector2>(), start, width);
     start.Link(end);
     graph.positions.Add(start.pos);
     graph.positions.Add(end.pos);
-    GraphRec(eval, graph, start, end, 0f, 1f);
+    GenGraphRec(eval, graph, start, end, 0f, 1f);
     start.EvalWeights();
     return graph;
   }

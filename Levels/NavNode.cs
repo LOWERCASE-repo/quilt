@@ -17,15 +17,15 @@ internal class NavNode {
   }
   
   internal void EvalWeights() {
-    // foreach (KeyValuePair<NavNode, float> link in links) {
-    //   NavNode node = link.Key;
-    //   if (link.Value == -1f) {
-    //     float dist = (pos - node.pos).magnitude;
-    //     links[node] = dist;
-    //     node.links[this] = dist;
-    //     node.EvalWeights();
-    //   }
-    // }
+    HashSet<NavNode> nodes = new HashSet<NavNode>(links.Keys);
+    foreach (NavNode node in nodes) {
+      if (links[node] == -1f) {
+        float dist = (pos - node.pos).magnitude;
+        links[node] = dist;
+        node.links[this] = dist;
+        node.EvalWeights();
+      }
+    }
   }
   
   internal NavNode(Vector2 pos) {

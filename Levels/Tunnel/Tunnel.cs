@@ -24,7 +24,7 @@ public class Tunnel : MonoBehaviour {
     return beziers[index].Eval(evalTime);
   }
   
-  private void GenBeziers() {
+  private void GenBeziers() { // TODO move to tunnel generator
     float spacing = size / (curveCount - 1);
     PivotGroup[] groups = new PivotGroup[curveCount + 1];
     beziers = new Bezier[curveCount];
@@ -62,10 +62,10 @@ public class Tunnel : MonoBehaviour {
   
   private void Start() {
     GenBeziers();
-    start = NavGraphCreator.CreateGraph(Eval, 1f);
+    start = NavGraphGenerator.GenGraph(Eval, 1f);
   }
   
   private void Update() {
-    NavGraphCreator.DebugGraph(start.start);
+    NavGraphGenerator.DebugGraph(start.start);
   }
 }
