@@ -18,12 +18,12 @@ internal class NavGraphGenerator {
     
     float prevDist = (midPos - prev.pos).magnitude;
     if (prevDist >= graph.width) {
-      GraphRec(eval, graph, prev, mid, prevTime, midTime);
+      GenGraphRec(eval, graph, prev, mid, prevTime, midTime);
     }
     
     float nextDist = (midPos - next.pos).magnitude;
     if (nextDist >= graph.width) {
-      GraphRec(eval, graph, mid, next, midTime, nextTime);
+      GenGraphRec(eval, graph, mid, next, midTime, nextTime);
     }
   }
   
@@ -42,7 +42,7 @@ internal class NavGraphGenerator {
   private static void DebugGraphRec(NavNode prev, NavNode current) {
     foreach (KeyValuePair<NavNode, float> link in current.links) {
       if (link.Key != prev) {
-        Debug.DrawLine(current.pos, prev.pos);
+        Debug.DrawLine(current.pos, prev.pos, Color.red);
         DebugGraphRec(current, link.Key);
       }
     }

@@ -68,7 +68,7 @@ public class Tunnel : MonoBehaviour {
   
   private void Start() {
     GenBeziers();
-    graph = NavGraphGenerator.GenGraph(Eval, 1f);
+    graph = NavGraphGenerator.GenGraph(Eval, 0.2f);
     MapHull hull = MapHullGenerator.GenHull(graph);
     filter.mesh = hull.mesh;
     
