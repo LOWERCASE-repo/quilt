@@ -4,6 +4,8 @@ using System;
 
 internal class NavGraphGenerator {
   
+  // TODO make this not static probably
+  
   private static void GenGraphRec(Func<float, Vector2> eval, NavGraph graph, NavNode prev, NavNode next, float prevTime, float nextTime) {
     float midTime = (prevTime + nextTime) / 2f;
     Vector2 midPos = eval(midTime);
