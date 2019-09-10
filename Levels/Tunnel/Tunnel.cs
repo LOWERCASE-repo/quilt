@@ -14,6 +14,7 @@ public class Tunnel : MonoBehaviour {
   [SerializeField]
   private float shapeChaos;
   
+  
   private Bezier[] beziers;
   private NavGraph graph;
   
