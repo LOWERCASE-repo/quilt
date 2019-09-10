@@ -235,9 +235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 10
-  curveCount: 3
-  curveMag: 1
-  curveChaos: 1
+  curveCount: 5
+  curveMag: 10
+  curveChaos: 6
   shapeChaos: 1
   filter: {fileID: 1919410460}
   renderer: {fileID: 1919410459}

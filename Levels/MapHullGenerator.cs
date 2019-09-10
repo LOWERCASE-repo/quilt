@@ -8,15 +8,17 @@ internal class MapHullGenerator {
   private static void GenVertices(MapHull hull, NavNode node, HashSet<NavNode> visited) {
     Vector2 left = Vector2.zero;
     foreach (NavNode link in node.links.Keys) {
-      left += link.pos - node.pos;
+      if (!visited.Contains(link)) {
+        left += (link.pos - node.pos).normalized;
+      }
     }
-    if (node.links.Count == 1) {
+    if (left.Equals(Vector2.zero)) return;
+    // if (node.links.Count == 1) {
       left = new Vector2(left.y, -left.x);
-    }
+    // }
     left = left.normalized * hull.width;
-    Vector2 right = -left;
     hull.vertices.Add(node.pos + left);
-    hull.vertices.Add(node.pos + right);
+    hull.vertices.Add(node.pos - left);
     visited.Add(node);
     foreach (NavNode link in node.links.Keys) {
       if (!visited.Contains(link)) {
@@ -32,18 +34,9 @@ internal class MapHullGenerator {
     int triangleIndex = 0;
     for (int i = 0; i < hull.vertices.Count - 2; i++) {
       for (int j = 0; j < 3; j++) {
-        Debug.Log(triangleIndex + " " + (i + j));
         hull.triangles[triangleIndex] = i + j;
         triangleIndex++;
-        // if (i % 2 == 0) {
-        //   hull.triangles[i] = i + j;
-        // } else {
-        //   hull.triangles[i] = i + (2 - j);
-        // }
       }
-    }
-    for (int i = 0; i < hull.triangles.Length; i++) {
-      // Debug.Log(i + " " + hull.triangles[i]);
     }
     hull.mesh = new Mesh();
     hull.mesh.vertices = System.Array.ConvertAll<Vector2, Vector3>(hull.vertices.ToArray(), v => v);

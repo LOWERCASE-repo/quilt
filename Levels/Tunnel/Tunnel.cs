@@ -68,10 +68,10 @@ public class Tunnel : MonoBehaviour {
   
   private void Start() {
     GenBeziers();
-    graph = NavGraphGenerator.GenGraph(Eval, 0.2f);
+    graph = NavGraphGenerator.GenGraph(Eval, 3f);
     MapHull hull = MapHullGenerator.GenHull(graph);
     filter.mesh = hull.mesh;
-    
+    gameObject.AddComponent<PolygonCollider2D>();
   }
   
   private void Update() {
