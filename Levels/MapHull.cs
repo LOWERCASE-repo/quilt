@@ -5,7 +5,11 @@ internal class MapHull {
   
   internal float width;
   internal List<Vector2> vertices;
-  // whatever else lague's algo needs
+  internal int[] triangles;
+  internal Mesh mesh;
   
-  
+  internal MapHull(float width) {
+    this.width = width;
+    vertices = new List<Vector2>();
+  }
 }

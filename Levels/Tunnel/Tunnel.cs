@@ -61,9 +61,17 @@ public class Tunnel : MonoBehaviour {
     }
   }
   
+  [SerializeField]
+  private MeshFilter filter;
+  [SerializeField]
+  private MeshRenderer renderer;
+  
   private void Start() {
     GenBeziers();
     graph = NavGraphGenerator.GenGraph(Eval, 1f);
+    MapHull hull = MapHullGenerator.GenHull(graph);
+    filter.mesh = hull.mesh;
+    
   }
   
   private void Update() {
