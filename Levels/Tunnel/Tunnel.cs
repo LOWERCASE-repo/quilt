@@ -30,7 +30,7 @@ internal class Tunnel : LevelStyle {
     // gen groups
     Vector2 dir = Random.value < 0.5 ? Vector2.left : Vector2.right;
     groups[0] = new PivotGroup(Vector2.zero, dir);
-    for (int i = 0; i < groups.Length; i++) {
+    for (int i = 1; i < groups.Length; i++) {
       dir = groups[i - 1].dir.x > 0 ? Vector2.left : Vector2.right;
       dir *= curveMag + Random.value * curveChaos;
       groups[i] = new PivotGroup(Vector2.down * i * spacing, dir);

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 internal class MapHullGenerator {
   
-  private static Quaternion shift = Quaternion.AngleAxis(60f, Vector3.forward);
-  
   private static void GenVertices(MapHull hull, NavNode node, HashSet<NavNode> visited) {
     Vector2 left = Vector2.zero;
     foreach (NavNode link in node.links.Keys) {
@@ -40,17 +38,17 @@ internal class MapHullGenerator {
     hull.mesh.vertices = System.Array.ConvertAll<Vector2, Vector3>(hull.vertices.ToArray(), v => v);
     hull.mesh.triangles = hull.triangles;
     
-    hull.edges = new Vector2[hull.vertices.Count * 2];
+    hull.edges = new Vector2[hull.vertices.Count + 1];
     int edgeIndex = 0;
     for (int i = 0; i < hull.vertices.Count; i += 2) {
       hull.edges[edgeIndex] = hull.vertices[i];
       edgeIndex++;
     }
-    for (int i = hull.vertices.Count - 2; i > 0; i -= 2) {
+    for (int i = hull.vertices.Count - 1; i > 0; i -= 2) {
       hull.edges[edgeIndex] = hull.vertices[i];
       edgeIndex++;
     }
-    
+    hull.edges[edgeIndex] = hull.vertices[0];
     return hull;
   }
 }
