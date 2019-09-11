@@ -1,3 +1,13 @@
+TODO
+
+collider generation
+cleanup
+
+
+
+
+
+
 Fortune's Sweep-Line, Kruskal's, and Wave Function Collapse
 Showcases my own bezier-based algorithm that generates highly customizable dungeons
 
