@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Spiral : LevelStyle {
+internal class Spiral : LevelStyle {
   
   [SerializeField]
   private float radius;
@@ -10,7 +10,7 @@ public class Spiral : LevelStyle {
   
   private float totalRot;
   
-  private void Eval(float time) {
+  protected override Vector2 Eval(float time) {
     Quaternion rot = Quaternion.AngleAxis(totalRot * time, Vector3.forward);
     return rot * Vector2.up * time * radius;
   }

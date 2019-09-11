@@ -41,11 +41,14 @@ internal class MapHullGenerator {
     hull.mesh.triangles = hull.triangles;
     
     hull.edges = new Vector2[hull.vertices.Count * 2];
+    int edgeIndex = 0;
     for (int i = 0; i < hull.vertices.Count; i += 2) {
-      hull.edges.Add(hull.vertices[i]);
+      hull.edges[edgeIndex] = hull.vertices[i];
+      edgeIndex++;
     }
     for (int i = hull.vertices.Count - 2; i > 0; i -= 2) {
-      hull.edges.Add(hull.vertices[i]);
+      hull.edges[edgeIndex] = hull.vertices[i];
+      edgeIndex++;
     }
     
     return hull;

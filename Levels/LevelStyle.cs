@@ -1,9 +1,9 @@
 using UnityEngine;
 
-internal class LevelStyle : MonoBehaviour {
+internal abstract class LevelStyle : MonoBehaviour {
   
   [SerializeField]
-  private float tolerence;
+  private float tolerance;
   [SerializeField]
   private float width;
   [SerializeField]
@@ -11,11 +11,11 @@ internal class LevelStyle : MonoBehaviour {
   [SerializeField]
   private EdgeCollider2D collider;
   
-  protected abstract void Eval(float time);
+  protected abstract Vector2 Eval(float time);
   
   protected void BuildLevel() {
-    graph = NavGraphGenerator.GenGraph(Eval, tolerence);
-    hull = MapHullGenerator.GenHull(graph, width);
+    NavGraph graph = NavGraphGenerator.GenGraph(Eval, tolerance);
+    MapHull hull = MapHullGenerator.GenHull(graph, width);
     filter.mesh = hull.mesh;
     collider.points = hull.edges;
   }

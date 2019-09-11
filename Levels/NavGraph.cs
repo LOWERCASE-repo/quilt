@@ -5,11 +5,11 @@ internal class NavGraph {
   
   internal HashSet<Vector2> positions;
   internal NavNode start;
-  internal float width;
+  internal float tolerance;
   
-  internal NavGraph(NavNode start, float width) {
+  internal NavGraph(NavNode start, float tolerance) {
     this.start = start;
-    this.width = width;
+    this.tolerance = tolerance;
     positions = new HashSet<Vector2>();
   }
 }
