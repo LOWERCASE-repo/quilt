@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Tunnel : MonoBehaviour {
+public class Tunnel : LevelStyle {
   
   [SerializeField]
   private float size;
@@ -14,9 +14,7 @@ public class Tunnel : MonoBehaviour {
   [SerializeField]
   private float shapeChaos;
   
-  
   private Bezier[] beziers;
-  private NavGraph graph;
   
   private Vector2 Eval(float time) {
     float curveLen = 1f / beziers.Length;
@@ -31,8 +29,6 @@ public class Tunnel : MonoBehaviour {
     beziers = new Bezier[curveCount];
     
     // gen groups
-    Vector2 dir = Random.value < 0.5 ? Vector2.left : Vector2.right;
-    dir *= curveMag + Random.value * curveChaos;
     groups[0] = new PivotGroup(Vector2.zero, dir);
     for (int i = 1; i < groups.Length; i++) {
       dir = groups[i - 1].dir.x > 0 ? Vector2.left : Vector2.right;
@@ -41,13 +37,10 @@ public class Tunnel : MonoBehaviour {
     }
     
     // flavour groups
-    Quaternion rot = Quaternion.AngleAxis(Random.value * 360f, Vector3.forward);
     for (int i = 0; i < groups.Length; i++) {
       PivotGroup group = groups[i];
       group.center += Random.insideUnitCircle * shapeChaos;
-      group.center = rot * group.center;
       group.dir += Random.insideUnitCircle * shapeChaos;
-      group.dir = rot * group.dir;
     }
     
     // construct beziers
@@ -61,20 +54,8 @@ public class Tunnel : MonoBehaviour {
     }
   }
   
-  [SerializeField]
-  private MeshFilter filter;
-  [SerializeField]
-  private MeshRenderer renderer;
-  
   private void Start() {
     GenBeziers();
-    graph = NavGraphGenerator.GenGraph(Eval, 1f);
-    MapHull hull = MapHullGenerator.GenHull(graph);
-    filter.mesh = hull.mesh;
-    gameObject.AddComponent<PolygonCollider2D>();
-  }
-  
-  private void Update() {
-    NavGraphGenerator.DebugGraph(graph.start);
+    BuildLevel();
   }
 }
