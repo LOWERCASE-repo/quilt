@@ -1,15 +1,14 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 internal class NavGraph {
   
-  internal HashSet<Vector2> positions;
-  internal NavNode start; // can get rid of this for internal List<Vector2> nodes;
   internal float tolerance;
+  internal Vector2[] positions;
+  internal float[] weights;
   
-  internal NavGraph(NavNode start, float tolerance) {
-    this.start = start;
+  internal NavGraph(Vector2[] positions, float[] weights, float tolerance) {
+    this.positions = positions;
+    this.weights = weights;
     this.tolerance = tolerance;
-    positions = new HashSet<Vector2>();
   }
 }

@@ -3,36 +3,3 @@ layers of abstraction
 path is made of beziers and evals points
 
 TODO mesh joining
-
-
-public NavNode Graph(float width) {
-  Vector2 startPos = Eval(0.0);
-  Vector2 endPos = Eval(1.0);
-
-  NavNode start = new NavNode(startPos);
-  NavNode end = new NavNode(endPos);
-  start.Link(end);
-
-  GraphRec(width, start, end, 0.0, 1.0);
-
-  return start;
-}
-
-private void GraphRec(float width, NavNode prev, NavNode next, double prevTime, double nextTime) {
-  double midTime = (prevTime + nextTime) / 2.0;
-  Vector2 midPos = Eval(midTime);
-
-  NavNode mid = new NavNode(midPos);
-  prev.Unlink(next);
-  mid.Link(prev);
-  mid.Link(next);
-
-  double prevDist = (midPos - prev.pos).magnitude;
-  double nextDist = (midPos - next.pos).magnitude;
-  if (prevDist >= width) {
-    GraphRec(width, prev, mid, prevTime, midTime);
-  }
-  if (nextDist >= width) {
-    GraphRec(width, mid, next, midTime, nextTime);
-  }
-}

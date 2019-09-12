@@ -1,38 +1,47 @@
 using UnityEngine;
 using System;
 
-internal class NavGraphGenerator {
+internal static class NavGraphGenerator {
   
-  private static void GenGraphRec(Func<float, Vector2> eval, NavGraph graph, NavNode prev, NavNode next, float prevTime, float nextTime) {
+  private static LinkedList<Vector2> positions;
+  private static float[] weights;
+  private static Func<float, Vector2> eval;
+  private static float tolerance;
+  
+  private static void GenPositions(LinkedListNode<Vector2> prev, float prevTime, float nextTime) {
     float midTime = (prevTime + nextTime) / 2f;
     Vector2 midPos = eval(midTime);
     
-    NavNode mid = new NavNode(midPos);
-    prev.Unlink(next);
-    mid.Link(prev);
-    mid.Link(next);
-    graph.positions.Add(mid.pos);
+    LinkedListNode<Vector2> mid = new LinkedListNode<Vector2>(midPos);
+    positions.AddAfter(prev, mid);
     
-    float prevDist = (midPos - prev.pos).magnitude;
-    if (prevDist > graph.tolerance) {
-      GenGraphRec(eval, graph, prev, mid, prevTime, midTime);
+    float prevDist = (midPos - prev.Value).magnitude;
+    if (prevDist > tolerance) {
+      GenGraphRec(prev, prevTime, midTime);
     }
-    
-    float nextDist = (midPos - next.pos).magnitude;
-    if (nextDist > graph.tolerance) {
-      GenGraphRec(eval, graph, mid, next, midTime, nextTime);
+    float nextDist = (midPos - prev.Next.value).magnitude;
+    if (nextDist > tolerance) {
+      GenGraphRec(mid, midTime, nextTime);
+    }
+  }
+  
+  private static void GenWeights() {
+    weights = new float[positions.Count - 1];
+    for (int i = 0; i < weights.Length;) {
+      weights[i] = (positions[i] - positions[++i]).magnitude;
     }
   }
   
   internal static NavGraph GenGraph(Func<float, Vector2> eval, float tolerance) {
-    NavNode start = new NavNode(eval(0f));
-    NavNode end = new NavNode(eval(1f));
-    start.Link(end);
-    NavGraph graph = new NavGraph(start, tolerance);
-    graph.positions.Add(start.pos);
-    graph.positions.Add(end.pos);
-    GenGraphRec(eval, graph, start, end, 0f, 1f);
-    start.EvalWeights();
+    this.eval = eval;
+    this.tolerance = tolerance;
+    positions = new LinkedList<Vector2>();
+    LinkedListNode<Vector2> start = new LinkedListNode<Vector2>(eval(0f));
+    positions.AddFirst(start);
+    positions.AddLast(eval(1f));
+    GenPositions(start, 0f, 1f);
+    GenWeights();
+    NavGraph graph = new NavGraph(positions, weights, tolerance);
     return graph;
   }
 }
