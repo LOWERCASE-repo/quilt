@@ -1,9 +1,0 @@
-Fortune's Sweep-Line, Kruskal's, and Wave Function Collapse
-Showcases my own bezier-based algorithm that generates highly customizable dungeons
-
-three level types by linearity:
-  bezier (path)
-  kruskal (maze)
-  wave collapse (world)
-
-

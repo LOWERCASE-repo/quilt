@@ -1,7 +1,0 @@
-layers of abstraction
-
-path is made of beziers and evals points
-
-TODO mesh joining
-
-
