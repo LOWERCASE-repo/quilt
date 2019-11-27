@@ -12,33 +12,38 @@ internal class CircleGen : MonoBehaviour {
   
   */
   
-  private bool mainTipped;
-  
   [SerializeField]
-  private LineRenderer lineRenderer;
+  private Transform sides;
+  [SerializeField]
+  private Transform spokes;
   
   private void Start() {
+    float radius = 0.5f;
     int pointCount = 3 + (int)((Random.value - Mathf.Epsilon) * 4);
-    lineRenderer.positionCount = pointCount;
-    lineRenderer.SetPositions(GenPoly(0.5f, pointCount));
+    Quaternion deltaRot = Quaternion.AngleAxis(360f / pointCount, Vector3.forward);
+    GenPoly(radius, pointCount, deltaRot);
+    // GenSpokes(radius, pointCount, deltaRot);
   }
   
-  private Vector3[] GenPoly(float radius, int pointCount) {
-    Vector3[] points = new Vector3[pointCount];
+  private void GenPoly(float radius, int pointCount, Quaternion deltaRot) {
+    float ang = Mathf.PI / pointCount;
+    float sideLength = 2f * radius * Mathf.Sin(ang);
+    float sideDist = radius * Mathf.Cos(ang);
     float deltaAng = 360f / pointCount;
-    Quaternion deltaRot = Quaternion.AngleAxis(deltaAng, Vector3.forward);
     
     for (int i = 0; i < pointCount; i++) {
-      Vector3 point = Vector3.up * radius;
+      Transform side = sides.GetChild(i);
+      side.gameObject.SetActive(true);
+      side.localScale = new Vector3(sideLength, side.localScale.y, 1f);
+      side.position = new Vector3(0f, sideDist, 0f);
       for (int j = 0; j < i; j++) {
-        point = deltaRot * point;
+        side.position = deltaRot * side.position;
+        side.rotation = deltaRot * side.rotation;
       }
-      Debug.Log(point);
-      points[i] = point;
     }
-    
-    return points;
   }
   
-  
+  private void GenSpokes(float radius, int pointCount, Quaternion deltaRot) {
+    
+  }
 }
