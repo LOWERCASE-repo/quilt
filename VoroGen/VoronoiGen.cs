@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-internal class Voronoi : MonoBehaviour {
+internal class VoronoiGen : MonoBehaviour {
   
   [SerializeField]
   private Vector2Int size;
